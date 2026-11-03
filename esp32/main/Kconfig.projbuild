@@ -1,0 +1,47 @@
+menu "SMK-25 USB MIDI bridge configuration"
+
+config SMK25_FPGA_UART_PORT
+    int "FPGA UART controller number"
+    range 0 2
+    default 1
+
+config SMK25_FPGA_UART_TX_GPIO
+    int "FPGA UART TX GPIO (-1 disables physical UART output)"
+    range -1 54
+    default 26
+    help
+        GPIO26 on the DNESP32P4 goes to FPGA UART_RX.
+        Also connect common GND. Set -1 to disable physical UART output.
+
+config SMK25_FPGA_UART_BAUD
+    int "FPGA ControlEvent UART baud"
+    default 1000000
+    range 115200 3000000
+
+config SMK25_FPGA_UART_RX_GPIO
+    int "FPGA return UART RX GPIO (-1 disables feedback)"
+    range -1 54
+    default 27
+    help
+        FPGA Y22 (same PMOD1 header as Y21) -> ESP32-P4 GPIO27.
+
+config SMK25_EVENT_QUEUE_DEPTH
+    int "USB MIDI event queue depth"
+    default 256
+    range 16 256
+
+config SMK25_HEARTBEAT_MS
+    int "NOP heartbeat period in milliseconds"
+    default 100
+    range 20 250
+
+endmenu
+
+menu "JDY-31 phone UART"
+config MUSIC_PHONE_UART_BAUD
+    int "Module UART baud rate"
+    default 9600
+    range 1200 1000000
+    help
+        Match the module firmware's UART baud. The default is a test setting.
+endmenu

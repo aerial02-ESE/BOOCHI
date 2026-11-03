@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gowin-fpga-project>
+<Project>
+    <Template>FPGA</Template>
+    <Version>5</Version>
+    <Device name="GW5AT-60B" pn="GW5AT-LV60PG484AC1/I0">gw5at60b-002</Device>
+    <FileList>
+        <File path="rtl/practice_judge.v" type="file.verilog" enable="1"/>
+        <File path="rtl/practice_report_tx.v" type="file.verilog" enable="1"/>
+        <File path="rtl/led/keyboard_ws2812.v" type="file.verilog" enable="1"/>
+        <File path="rtl/tang_mega_60k_usbhost_top.v" type="file.verilog" enable="1"/>
+        <File path="rtl/tang_mega_60k_spectrum_keys_top.v" type="file.verilog" enable="1"/>
+        <File path="rtl/tang_mega_60k_testtone_top.v" type="file.verilog" enable="1"/>
+        <File path="rtl/lcd_rgb_timing.v" type="file.verilog" enable="1"/>
+        <File path="rtl/key1_instrument_select.v" type="file.verilog" enable="1"/>
+        <File path="rtl/key_pulse_debounce.v" type="file.verilog" enable="1"/>
+        <File path="rtl/local_instrument_mapper.v" type="file.verilog" enable="1"/>
+        <File path="rtl/spectrum_analyzer.v" type="file.verilog" enable="1"/>
+        <File path="rtl/spectrum_keys_renderer.v" type="file.verilog" enable="1"/>
+        <File path="rtl/score_viewer.v" type="file.verilog" enable="1"/>
+        <File path="rtl/score_led_guide.v" type="file.verilog" enable="1"/>
+        <File path="rtl/lcd_backlight_pwm.v" type="file.verilog" enable="1"/>
+        <File path="rtl/touch_i2c_safe_idle.v" type="file.verilog" enable="1"/>
+
+        <File path="rtl/audio/audio_limiter.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/note_phase_rom.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/piano_waveform_rom.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/bass_waveform_rom.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/sample_tick_gen.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/music_synth_core.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/drum_synth_core.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/body_resonance.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/body_mode_rom.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/piano_effects_chain.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/delay_effect.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/chorus_effect.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/reverb_effect.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/event_fifo.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/audio_cdc_fifo.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/audio_sample_buffer.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/pt8211_tx.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/pt8211_output_chain.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/uart_rx_8n1.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/uart_control_event_rx.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/event_link_watchdog.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/sustain_event_processor_multi.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/channel_expression_state.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/pitch_bend_map.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/control_event_router.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/esp32_audio_engine.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/event_cdc_fifo.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/event_arbiter.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/test_tone_gen.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/score_player.v" type="file.verilog" enable="1"/>
+        <File path="rtl/input/sensor_pair_if.v" type="file.verilog" enable="1"/>
+        <File path="rtl/led_audio_framework.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/i2s_tx.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/tas5805_ctrl.v" type="file.verilog" enable="1"/>
+        <File path="rtl/audio/tas5805_i2c_master.v" type="file.verilog" enable="1"/>
+        <File path="rtl/led/led_guide_controller.v" type="file.verilog" enable="1"/>
+        <File path="rtl/led/ws2812_tx.v" type="file.verilog" enable="1"/>
+        <File path="rtl/usb/usb_crc.v" type="file.verilog" enable="1"/>
+        <File path="rtl/usb/ulpi_packet_link.v" type="file.verilog" enable="1"/>
+        <File path="rtl/usb/usb_host_enum.v" type="file.verilog" enable="1"/>
+        <File path="rtl/usb/usb_midi_parser.v" type="file.verilog" enable="1"/>
+        <File path="rtl/usb/usb_midi_host_top.v" type="file.verilog" enable="1"/>
+
+        <File path="src/control_event64_defs.vh" type="file.other" enable="1"/>
+        <File path="src/note_phase_rom_48828.mem" type="file.other" enable="1"/>
+        <File path="src/piano_waveform_rom.mem" type="file.other" enable="1"/>
+        <File path="src/piano_refined_18bit.mem" type="file.other" enable="1"/>
+        <File path="src/instrument_bank.mem" type="file.other" enable="1"/>
+        <File path="src/bass_waveform_rom.mem" type="file.other" enable="1"/>
+        <File path="src/organ_waveform_rom.mem" type="file.other" enable="1"/>
+        <File path="src/body_mode_rom.mem" type="file.other" enable="1"/>
+        <File path="src/drum_sine_rom.mem" type="file.other" enable="1"/>
+        <File path="src/spectrum_coefficients.mem" type="file.other" enable="1"/>
+        <File path="src/score_demo.mem" type="file.other" enable="1"/>
+        <File path="src/led_map.mem" type="file.other" enable="1"/>
+        <File path="src/tas5805_init.mem" type="file.other" enable="1"/>
+        <File path="src/screen_columns.mem" type="file.other" enable="1"/>
+        <File path="constraints/tang_mega_60k_rgb480x272.cst" type="file.cst" enable="1"/>
+        <File path="constraints/tang_mega_60k_rgb480x272.sdc" type="file.sdc" enable="1"/>
+    </FileList>
+</Project>

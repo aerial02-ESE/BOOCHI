@@ -1,0 +1,177 @@
+// Tang Mega NEO Dock (schematic 31004, revision 1.4), J5 RGB LCD FPC.
+// J5 is wired as RGB666: R[1:0], G[1:0], B[1:0] are permanently grounded.
+// The retained colour bits and timing signals use the CH569_HSPI|RGB_LCD
+// group.  All listed pins are in the Dock's 3.3 V VCCO4/5 bank domain.
+
+IO_LOC  "sys_clk_50m" V22;
+IO_PORT "sys_clk_50m" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+
+// Core-board system reset; this pin belongs to a 1.5 V bank.
+IO_LOC  "sys_rst_n" AA13;
+IO_PORT "sys_rst_n" IO_TYPE=LVCMOS15 PULL_MODE=UP BANK_VCCIO=1.5;
+
+// KEY1=Y12 (Key_in[1]) switches the SMK-25 timbre; KEY2=AB13 (Key_in[0])
+// advances the display page: spectrum -> waveform -> Lissajous.
+IO_LOC  "key1_n" Y12;
+IO_PORT "key1_n" IO_TYPE=LVCMOS15 PULL_MODE=UP BANK_VCCIO=1.5;
+IO_LOC  "key2_n" AB13;
+IO_PORT "key2_n" IO_TYPE=LVCMOS15 PULL_MODE=UP BANK_VCCIO=1.5;
+
+// ESP32-P4-Module-DEV-KIT GPIO26/UART1 TX -> Dock J9 PMOD1_IO0 / FPGA Y21,
+// matching the proven 07 wiring. This build enables only USB0, and Y21 is
+// not assigned to either active ULPI interface.
+IO_LOC  "esp_uart_rx" Y21;
+IO_PORT "esp_uart_rx" IO_TYPE=LVCMOS33 PULL_MODE=UP BANK_VCCIO=3.3;
+// PMOD1_IO1, Dock Rev1.4 J8 pin12, adjacent to Y21 PMOD1_IO0 (pin11).
+IO_LOC "esp_uart_tx" Y22;
+IO_PORT "esp_uart_tx" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+
+// Dedicated 30-pixel WS2812B strip DIN. W22=IOB104B, device BANK7.
+// No overlap with the active ULPI0, LCD, PT8211 or UART pins.
+IO_LOC  "key_led_dout" W22;
+IO_PORT "key_led_dout" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC "key_led_high_dout" P17;
+IO_PORT "key_led_high_dout" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+
+// ---------------- FPGA_USB_MIDI_HOST_v4 on Dock J13 ----------------
+// Source of truth: ProPrj_FPGA_USB_MIDI_HOST_v4.epro2, PCB U7 PAD_NET records,
+// matched pin-for-pin to the Tang Mega NEO Dock J13 header.
+//
+// ULPI0 = USB3300 U1.  U1 DATA0..7 are package pins 24..17 and leave U7 as
+// NET1..NET8.  REST is U1 pin 9 (RESET, active high).
+IO_LOC  "ulpi0_clk" B17;
+IO_PORT "ulpi0_clk" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC  "ulpi0_dir" B13;
+IO_PORT "ulpi0_dir" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC  "ulpi0_nxt" C15;
+IO_PORT "ulpi0_nxt" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC  "ulpi0_data[0]" E13;
+IO_PORT "ulpi0_data[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "ulpi0_data[1]" C14;
+IO_PORT "ulpi0_data[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "ulpi0_data[2]" C13;
+IO_PORT "ulpi0_data[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "ulpi0_data[3]" A13;
+IO_PORT "ulpi0_data[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "ulpi0_data[4]" B15;
+IO_PORT "ulpi0_data[4]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "ulpi0_data[5]" A15;
+IO_PORT "ulpi0_data[5]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "ulpi0_data[6]" B20;
+IO_PORT "ulpi0_data[6]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "ulpi0_data[7]" B21;
+IO_PORT "ulpi0_data[7]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "ulpi0_stp" A14;
+IO_PORT "ulpi0_stp" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "ulpi0_phy_rst" E14;
+IO_PORT "ulpi0_phy_rst" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+
+// ULPI1 = USB3300 U3.  U3 DATA0..7 are package pins 24..17 and leave U7 as
+// 1NET1..1NET8.  REST1 is U3 pin 9 (RESET, active high).
+IO_LOC  "ulpi1_clk" E17;
+IO_PORT "ulpi1_clk" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC  "ulpi1_dir" A21;
+IO_PORT "ulpi1_dir" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC  "ulpi1_nxt" A20;
+IO_PORT "ulpi1_nxt" IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_LOC  "ulpi1_data[0]" B16;
+IO_PORT "ulpi1_data[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "ulpi1_data[1]" D17;
+IO_PORT "ulpi1_data[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "ulpi1_data[2]" A18;
+IO_PORT "ulpi1_data[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "ulpi1_data[3]" D14;
+IO_PORT "ulpi1_data[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "ulpi1_data[4]" E16;
+IO_PORT "ulpi1_data[4]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "ulpi1_data[5]" F13;
+IO_PORT "ulpi1_data[5]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "ulpi1_data[6]" F16;
+IO_PORT "ulpi1_data[6]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "ulpi1_data[7]" F15;
+IO_PORT "ulpi1_data[7]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "ulpi1_stp" B18;
+IO_PORT "ulpi1_stp" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_LOC  "ulpi1_phy_rst" A16;
+IO_PORT "ulpi1_phy_rst" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+// J5 LCD R[7:2]: R2=HRVLD, R3=HD0, R4=HD1, R5=HTRDY, R6=HD3, R7=HD4.
+IO_LOC  "dock_lcd_r6[0]" G18;
+IO_LOC  "dock_lcd_r6[1]" G17;
+IO_LOC  "dock_lcd_r6[2]" H22;
+IO_LOC  "dock_lcd_r6[3]" J22;
+IO_LOC  "dock_lcd_r6[4]" K22;
+IO_LOC  "dock_lcd_r6[5]" K21;
+
+// J5 LCD G[7:2]: G2=HD5 through G7=HD10.
+IO_LOC  "dock_lcd_g6[0]" K18;
+IO_LOC  "dock_lcd_g6[1]" L21;
+IO_LOC  "dock_lcd_g6[2]" M21;
+IO_LOC  "dock_lcd_g6[3]" M22;
+IO_LOC  "dock_lcd_g6[4]" N22;
+IO_LOC  "dock_lcd_g6[5]" L18;
+
+// J5 LCD B[7:2]: B2=HD11 through B7=HCTS.
+IO_LOC  "dock_lcd_b6[0]" M18;
+IO_LOC  "dock_lcd_b6[1]" N19;
+IO_LOC  "dock_lcd_b6[2]" N18;
+IO_LOC  "dock_lcd_b6[3]" K16;
+IO_LOC  "dock_lcd_b6[4]" L16;
+IO_LOC  "dock_lcd_b6[5]" M20;
+
+// J5 CLK=HTACK, HSYNC=HTREQ, VSYNC=HTVLD and DEN=HD2.
+IO_LOC  "lcd_pclk"  L19;
+IO_LOC  "lcd_hsync" N20;
+IO_LOC  "lcd_vsync" L15;
+IO_LOC  "lcd_de"    L14;
+
+// The Dock's LP3320 backlight driver uses this as its enable/PWM signal.
+IO_LOC  "lcd_bl_pwm" P20;
+
+IO_PORT "dock_lcd_r6[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "dock_lcd_r6[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "dock_lcd_r6[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "dock_lcd_r6[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "dock_lcd_r6[4]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "dock_lcd_r6[5]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "dock_lcd_g6[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "dock_lcd_g6[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "dock_lcd_g6[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "dock_lcd_g6[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "dock_lcd_g6[4]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "dock_lcd_g6[5]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "dock_lcd_b6[0]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "dock_lcd_b6[1]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "dock_lcd_b6[2]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "dock_lcd_b6[3]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "dock_lcd_b6[4]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "dock_lcd_b6[5]" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "lcd_pclk"        IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "lcd_hsync"       IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "lcd_vsync"       IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "lcd_de"          IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "lcd_bl_pwm"      IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+
+// Dock J6 capacitive-touch connector: SCL, SDA, INT and RESET.
+IO_LOC  "ctp_scl"   W16;
+IO_LOC  "ctp_sda"   U16;
+IO_LOC  "ctp_int"   T16;
+IO_LOC  "ctp_rst_n" T15;
+IO_PORT "ctp_scl"   IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_PORT "ctp_sda"   IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_PORT "ctp_int"   IO_TYPE=LVCMOS33 PULL_MODE=NONE BANK_VCCIO=3.3;
+IO_PORT "ctp_rst_n" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+
+// ---------------- PT8211 audio DAC (Dock) ----------------
+IO_LOC  "pt_bck" Y17;
+IO_LOC  "pt_ws"  AB17;
+IO_LOC  "pt_din" AA16;
+IO_LOC  "pa_en"  AB16;
+IO_PORT "pt_bck" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "pt_ws"  IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "pt_din" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+IO_PORT "pa_en"  IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
+
+// Dock J13 is occupied by FPGA_USB_MIDI_HOST_v4 in this build.  The optional
+// TAS5805M/WS2812 daughterboard is mutually exclusive and is intentionally not
+// constrained by tang_mega_60k_usbhost_top.  Dock PT8211 audio remains active.
+

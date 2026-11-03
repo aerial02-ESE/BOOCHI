@@ -1,0 +1,68 @@
+# Gowin implementation outputs; keep the reproducible project configuration.
+/fpga/impl/*
+!/fpga/impl/tang_mega_60k_spectrum_keys_process_config.json
+/fpga/temp/
+/fpga/tmp/
+*.gprj.user
+
+# Simulator work libraries, waveforms and transcripts.
+/fpga/tests/work_*/
+/fpga/**/work/
+/fpga/**/modelsim.ini
+/fpga/**/transcript
+/fpga/**/*.wlf
+/fpga/**/*.vcd
+/fpga/**/*.vpd
+/fpga/**/*.fst
+
+# Generated FPGA programming files; keep RTL and ROM initialization files.
+/fpga/**/*.fs
+/fpga/**/*.bit
+/fpga/**/*.bin
+/fpga/**/*.svf
+
+# ESP-IDF generated builds and machine-specific configuration.
+/esp32/build/
+/esp32/build-*/
+/esp32/managed_components/
+/esp32/sdkconfig
+/esp32/sdkconfig.old
+
+# Android Studio / Gradle caches and generated packages.
+/android_app/**/.gradle/
+/android_app/**/.kotlin/
+/android_app/.idea/
+/android_app/**/.cxx/
+/android_app/**/.externalNativeBuild/
+/android_app/local.properties
+/android_app/**/build/
+/android_app/captures/
+/android_app/**/*.apk
+/android_app/**/*.aab
+/android_app/**/*.ap_
+/android_app/**/*.dex
+/android_app/**/*.class
+*.iml
+
+# Local credentials and signing material.
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.jks
+*.keystore
+/android_app/keystore.properties
+/android_app/signing.properties
+
+# Logs, Python caches, editor backups and operating-system metadata.
+*.log
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+*~
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+Desktop.ini
